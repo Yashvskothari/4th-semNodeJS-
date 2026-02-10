@@ -1,40 +1,71 @@
-// how we can create a server with the help of fs module
-// response and request ---> event listening
-// everytime we generate request , we generate an http request
+// Import required core modules
+const http = require("http"); // Used to create an HTTP server
+const fs = require("fs");     // Used to interact with the file system (read/write files)
 
-const http = require("http"); // to create a server and sending request
-const fs = require("fs"); // to read the file
-
-// create http server
+// Create an HTTP server
 const server = http.createServer((req, res) => {
-  // read the text file
+
+  // Read the contents of "data.txt" asynchronously
   fs.readFile("data.txt", "utf-8", (err, data) => {
-    // err and data are callback functionalities , so that we can handle asynchronously
+
+    // If an error occurs while reading the file
     if (err) {
-      res.writeHead(500, { "Content-Type": "text/plain" }); 
-      // jo hum request bhej rahe hai , uska header generate karne ke liye ham "res.writeHead" use kar rahe hai
-      // 200 - success
-      // 400 - error
-      // 404
-      // 500- server error
-      // there are multiple such codes
+      // Send HTTP status code 500 (Internal Server Error)
+      res.writeHead(500, { "Content-Type": "text/plain" });
+
+      // End the response with an error message
       res.end("Error reading file");
-    } else {
+    } 
+    else {
+      // Send HTTP status code 200 (OK / Success)
       res.writeHead(200, { "Content-Type": "text/plain" });
+
+      // Send the file data as the response
       res.end(data);
     }
   });
 });
 
-// start server
-// server.listen() ---> important to start a server
-
+// Start the server and listen on port 3000
 server.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
 });
 
-// there are multiple (mainly 4) types of requests  ,but we are not using it here.
 
-// request are made any tools and response comes at the frontend
-// we can use "postman" as well
-// we can use thunder clinet as well
+/*
+IMPORTANT NOTES:
+
+1. req (Request):
+   Represents the incoming HTTP request from the client.
+   Example: Browser, Postman, Thunder Client, mobile app, etc.
+
+2. res (Response):
+   Used to send a response back to the client.
+
+3. readFile():
+   Works asynchronously, meaning it does not block the server
+   while the file is being read.
+
+4. writeHead():
+   Sends the HTTP status code and response headers.
+   Common status codes:
+   - 200 → Success
+   - 404 → Resource not found
+   - 400 → Bad request
+   - 500 → Internal server error
+
+5. server.listen():
+   Required to start the server and make it available
+   to accept client requests.
+
+6. HTTP Request Methods:
+   The most commonly used methods are:
+   - GET    → Retrieve data
+   - POST   → Send new data
+   - PUT    → Update existing data
+   - DELETE → Remove data
+
+7. Testing APIs:
+   Tools like Postman or Thunder Client can be used
+   to send HTTP requests and inspect server responses.
+*/
