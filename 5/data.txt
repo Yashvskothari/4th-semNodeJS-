@@ -1,0 +1,2 @@
+Data fetched and read.
+This is used to show sample text.
