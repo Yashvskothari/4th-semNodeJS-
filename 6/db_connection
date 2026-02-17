@@ -1,0 +1,23 @@
+const { MongoClient } = require('mongodb');
+const url = "mongodb+srv://yashkotjpr_db_user:db_12345@cluster0.pcuxbyt.mongodb.net/students?retryWrites=true&w=majority";
+// const url = "paste your atlas link here";
+
+const client = new MongoClient(url);
+
+let db;
+
+async function connectDB() {
+    try {
+        await client.connect();
+        db = client.db("collegeDB");
+        console.log(" MongoDB Connected Successfully");
+    } catch (error) {
+        console.error(" Database Connection Failed:", error);
+    }
+}
+
+function getDB() {
+    return db;
+}
+
+module.exports = { connectDB, getDB };
