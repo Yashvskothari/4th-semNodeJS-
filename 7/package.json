@@ -1,8 +1,8 @@
 {
-  "name": "7",
+  "name": "8th",
   "version": "1.0.0",
   "description": "",
-  "main": "asyncAwait.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
